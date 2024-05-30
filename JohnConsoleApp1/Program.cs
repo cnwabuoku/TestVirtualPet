@@ -16,7 +16,7 @@ namespace HelloWorld
             string firstName = "John";
             string surname = "Nwabuoku";
             Console.WriteLine("Hello {0} {1}. ", firstName, surname );
-            Console.WriteLine("Hello Worldguyuyfgui!");
+            Console.WriteLine("Hello World!");
             int a = 'a' + 1;
             Console.WriteLine(a);
         }
