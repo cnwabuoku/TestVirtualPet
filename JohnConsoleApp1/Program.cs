@@ -6,11 +6,11 @@ namespace VirtualPet        // Namespace declaration
 {
     public class Pet        // Class declaration
     {
-        public string Type;
-        public string Name;
-        public int Hunger;
-        public int Happiness;
-        public int Health;
+        public string Type { get; set; }
+        public string Name { get; set; }   
+        public int Hunger { get; set; }
+        public int Happiness { get; set; }
+        public int Health { get; set; }
 
         // Constructor
         public Pet(string type, string name)
@@ -61,11 +61,23 @@ namespace VirtualPet        // Namespace declaration
         }
     }
 
-    class program
+    class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine();
+            Console.WriteLine("Hello :), Welcome to your Pet Care Simulation!");
+            Console.Write("Choose a type of pet (Cat, Dog, Rabbit, Hamster): ");
+            string petType = Console.ReadLine();
+            Console.WriteLine(petType);
+
+            Console.Write("Give your pet a name: ");
+            string petName = Console.ReadLine();
+            Console.WriteLine(petName);
+
+            Pet myPet = new Pet(petType, petName);
+
+            Console.WriteLine($"Welcome {myPet.Name} the {myPet.Type}!");
+
         }
     }
 }
