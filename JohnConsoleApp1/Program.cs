@@ -25,24 +25,24 @@ namespace VirtualPet        // Namespace declaration
         // Method to feed the pet
         public void Feed()
         {
-            Hunger = Math.Max(0, Hunger - 2); // Decrease hunger, minimum hunger is 0
-            Health = Math.Min(10, Health + 1); // Slightly increase health, maximum health is 10
+            Hunger = Math.Max(Hunger - 2, 1); // Decrease hunger, minimum hunger is 1
+            Health = Math.Min(Health + 1, 10); // Slightly increase health, maximum health is 10
             Console.WriteLine($"\nYou fed {Name}. Hunger: {Hunger}(decreased), Health: {Health}(slightly increased).");
         }
 
         // Method to play with the pet
         public void Play()
         {
-            Happiness = Math.Min(10, Happiness + 2); // Increase happiness, maximum happiness is 10
-            Hunger = Math.Min(10, Hunger + 1); // Slightly increase hunger, maximum hunger is 10
-            Console.WriteLine($"\nYou played with {Name}. Happiness: {Happiness}(increased), Hunger: {Hunger}(slightly increased).");
+            Happiness = Math.Min(Happiness + 2, 10); // Increase happiness, maximum happiness is 10
+            Hunger = Math.Min(Hunger + 1, 10); // Slightly increase hunger, maximum hunger is 10
+            Console.WriteLine($"\nYou played with {Name}. Happiness: {Happiness}(increased), Hunger: {Hunger}(slightly increased)."); // outputs message using string interpolation $
         }
 
         // Method to let the pet rest
         public void Rest()
         {
-            Health = Math.Min(10, Health + 2); // Increase health, maximum health is 10
-            Happiness = Math.Max(0, Happiness - 1); // Decrease happiness slightly, minimum happiness is 0
+            Health = Math.Min(Health + 2, 10); // Increase health, maximum health is 10
+            Happiness = Math.Max(Happiness - 1, 1); // Decrease happiness slightly, minimum happiness is 1
             Console.WriteLine("\nYou let {0} rest. Health: {1} (increased), Happiness: {2} (slightly decreased).", Name, Health, Happiness);
         }
 
@@ -55,18 +55,22 @@ namespace VirtualPet        // Namespace declaration
         // Method to pass time
         public void PassTime()
         {
-            Hunger = Math.Min(10, Hunger + 1); // Increase hunger
-            Happiness = Math.Max(1, Happiness -1); // Decrease happiness
-            Health = Math.Min(10, Health - 1); //Health decreases slightly
+            Hunger = Math.Min(Hunger + 1, 10); // Increase hunger
+            Happiness = Math.Max(Happiness - 1, 1); // Decrease happiness
+            Health = Math.Min(Health - 1, 10); //Health decreases slightly
             Console.WriteLine("You passed time for {0}. Hunger {1} increased, happiness {2} slightly decreased, Health {3} decreased.", Name, Hunger, Happiness, Health);
+        }
+        public bool CriticalCondition()
+        {
+            return Hunger == 10 || Happiness == 1 || Health == 1;
         }
     }
 
-    class Program
+    class Program       // A class program to simulate actions
     {
-        static void Main(string[] args)
+        static void Main(string[] args)     // main method
         {
-            Console.Write("Hi, Please enter your name: ");
+            Console.Write("Hi, Please enter your name: ");          
             string userName = Console.ReadLine();
 
             Console.WriteLine("Hello {0}:), Welcome to your Pet Care Simulation! \n", userName);
@@ -78,12 +82,11 @@ namespace VirtualPet        // Namespace declaration
             string petName = Console.ReadLine();
             
 
-            Pet myPet = new Pet(petType, petName);
+            Pet myPet = new(petType, petName);      // Creates a new instance of the Pet object and assign it to the variable 'myPet'
 
             Console.WriteLine($"\nYou now have a {myPet.Type} named {myPet.Name}!  \n /\\_/\\  \r\n( o.o ) \r\n > ^ <");
 
             bool exit = false;
-
             for (; !exit;)
             {
                 Console.WriteLine("\nHow would you like to care for {0}?", petName);
@@ -124,6 +127,11 @@ namespace VirtualPet        // Namespace declaration
                 else
                 {
                     Console.WriteLine("Invalid choice, please try again.");
+                }
+
+                if (myPet.CriticalCondition())
+                {
+                    Console.WriteLine($"Warning! Your pet {petName} is in critical condtion");
                 }
             }
         }
